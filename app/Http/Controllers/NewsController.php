@@ -2,20 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Filters\FeedFilter;
+use App\Http\Requests\NewsRequest;
 use App\Models\Feed;
-use Illuminate\Http\Request;
 
 class NewsController extends Controller
 {
-    public function index(Request $request) {
+    public function index(NewsRequest $request) {
+        $data = $request->validated();
+        $filter = app()->make(FeedFilter::class, ['queryParams' => $data]);
         $page = $request->query('page', 1);
-        $date = $request->query('date');
 
-        $feeds = Feed::latest();
-
-        if ($date) {
-            $feeds->whereDate('pub_at', $date);
-        }
+        $feeds = Feed::filter($filter)->latest();
 
         $feeds = $feeds->paginate(10, ['*'], 'page', $page);
 

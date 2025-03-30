@@ -15,7 +15,7 @@ class NativeAppServiceProvider implements ProvidesPhpIni
     public function boot(): void
     {
         Window::open()
-        ->width(1000)
+        ->width(710)
         ->height(600)
         ->showDevTools(false)
         ->title('RIA RSS NEWS');
