@@ -23,7 +23,7 @@ class NewsRequest extends FormRequest
     {
         return [
             'page' => 'nullable|integer|min:1',
-            'date' => 'nullable|date',
+            'pub_at' => 'nullable|date',
         ];
     }
 }

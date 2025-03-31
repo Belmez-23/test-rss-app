@@ -21,4 +21,11 @@ class FeedFilter extends AbstractFilter
     {
         $builder->whereDate('pub_at', $value);
     }
+
+    public function toArray(): array
+    {
+        return [
+            self::PUB_AT => $this->getQueryParam(self::PUB_AT),
+        ];
+    }
 }

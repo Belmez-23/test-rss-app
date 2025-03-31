@@ -16,6 +16,8 @@ class NewsController extends Controller
 
         $feeds = Feed::getCachedPage($filter, $page, self::MAX_ITEMS);
 
+        $feeds->appends($request->validated());
+
         return view('feed', ['feeds' => $feeds]);
     }
 }

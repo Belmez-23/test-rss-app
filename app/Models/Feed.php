@@ -20,7 +20,7 @@ class Feed extends Model
 
     public static function getCachedPage($filter, int $page, int $perPage)
     {
-        $key = md5(json_encode($filter) . $page . $perPage);
+        $key = md5(json_encode($filter->toArray()) . $page . $perPage);
         $result = Cache::get($key, false);
 
         if (!$result) {
@@ -31,6 +31,5 @@ class Feed extends Model
         }
 
         return $result;
-
     }
 }
