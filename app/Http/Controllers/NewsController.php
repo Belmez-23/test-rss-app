@@ -8,14 +8,13 @@ use App\Models\Feed;
 
 class NewsController extends Controller
 {
+    const MAX_ITEMS = 10;
+
     public function index(NewsRequest $request) {
-        $data = $request->validated();
-        $filter = app()->make(FeedFilter::class, ['queryParams' => $data]);
+        $filter = app()->make(FeedFilter::class, ['queryParams' => $request->validated()]);
         $page = $request->query('page', 1);
 
-        $feeds = Feed::filter($filter)->latest();
-
-        $feeds = $feeds->paginate(10, ['*'], 'page', $page);
+        $feeds = Feed::getCachedPage($filter, $page, self::MAX_ITEMS);
 
         return view('feed', ['feeds' => $feeds]);
     }
