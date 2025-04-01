@@ -44,7 +44,7 @@
     </div>
     <div class="feed">
         <form action="{{ route('feed.index') }}" method="GET">
-            <input type="date" name="pub_at" value="{{ request('date', now()->format('Y-m-d')) }}">
+            <input type="date" name="pub_at" value="{{ request('pub_at', now()->format('Y-m-d')) }}">
             <button type="submit">Поиск</button>
         </form>
     </div>
